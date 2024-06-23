@@ -1,5 +1,6 @@
 package com.rmp.lab
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.rmp.lab.ui.screen.AddNewRoom
+import com.rmp.lab.ui.screen.MainPage
 import com.rmp.lab.ui.theme.SmarthouseTheme
 
 
@@ -22,7 +28,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "MainPage") {
+
+                        composable(route = "AddNewRoom"){
+                            AddNewRoom()
+                        }
+                        composable(route="MainPage"){
+                            MainPage()
+                        }
+
+
+                    }
 
                 }
             }
@@ -30,18 +47,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun GreetingPreview() {
-    SmarthouseTheme {
-        Greeting("Android")
-    }
-}
