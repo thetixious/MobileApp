@@ -1,12 +1,15 @@
 package com.rmp.lab.ui.screen
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 
@@ -36,8 +39,8 @@ fun AddNewRoom() {
             fillMaxWidth()
                 .padding(10.dp)
                 .height(100.dp)
-                .shadow(elevation =5.dp, shape = shape, clip = false)
-                .background(color = Color.White, shape =shape)
+                .shadow(elevation = 5.dp, shape = shape, clip = false)
+                .background(color = Color.White, shape = shape)
                 .clip(shape)
                 .paint(
                     painterResource(id = R.drawable.living_room),
@@ -46,11 +49,24 @@ fun AddNewRoom() {
                 )
         }
     ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.add),
+                contentDescription = "next",
+                modifier = Modifier
+                    .size(24.dp)
+
+            )
         Text(
+            modifier = Modifier.padding(start=10.dp),
             text = "Add new room",
-            color = Color.DarkGray,
-            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+            color = Color.Gray,
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Light)
         )
+        }
+
     }
 }
 
