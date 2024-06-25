@@ -49,6 +49,7 @@ fun MainPage() {
         }
         Column{
             AddNewRoom()
+
         }
 
     }

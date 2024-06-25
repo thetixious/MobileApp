@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.rmp.lab.ui.screen.AddNewRoom
 import com.rmp.lab.ui.screen.MainPage
+import com.rmp.lab.ui.screen.RoomScreen
 import com.rmp.lab.ui.theme.SmarthouseTheme
 
 
@@ -25,7 +26,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "MainPage") {
+                    NavHost(navController = navController, startDestination = "RoomScreen") {
+
+                        composable(route = "RoomScreen"){
+                            RoomScreen()
+                        }
 
                         composable(route = "AddNewRoom"){
                             AddNewRoom()
