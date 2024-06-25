@@ -1,10 +1,8 @@
 package com.rmp.lab.ui.divices
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -68,17 +66,14 @@ fun SmartSpeakers() {
                     modifier = Modifier.size(35.dp)
                 )
                 Switch(
-                    checked = true,
-                    onCheckedChange = {},
-                    colors = SwitchDefaults.colors(
+                    checked = true, onCheckedChange = {}, colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         checkedTrackColor = customColor,
                         uncheckedThumbColor = Color.White,
                         uncheckedTrackColor = Color.LightGray,
                         checkedBorderColor = customColor,
                         uncheckedBorderColor = Color.LightGray,
-                    ),
-                    modifier = Modifier.padding(end = 10.dp)
+                    ), modifier = Modifier.padding(end = 10.dp)
 
                 )
             }
