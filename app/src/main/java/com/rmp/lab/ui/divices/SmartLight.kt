@@ -48,7 +48,7 @@ fun SmartLight() {
 
         modifier = Modifier
             .width(160.dp)
-            .height(100.dp).shadow(elevation = 2.dp, shape = shape, clip = false).clip(shape),
+            .height(100.dp).shadow(elevation = 8.dp, shape = shape, clip = false).clip(shape),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
         ),
