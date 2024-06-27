@@ -18,6 +18,10 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +38,7 @@ import com.rmp.lab.R
 fun SmartLight() {
     val customColor = Color(0xFFFAE100)
     val shape = RoundedCornerShape(20.dp)
+    var isChecked by remember { mutableStateOf(true) }
     Card(
 
         modifier = Modifier
@@ -64,8 +69,8 @@ fun SmartLight() {
                     modifier = Modifier.size(35.dp)
                 )
                 Switch(
-                    checked = true,
-                    onCheckedChange = {},
+                    checked = isChecked,
+                    onCheckedChange = {isChecked=it},
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         checkedTrackColor = customColor,

@@ -13,17 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.rmp.lab.viewModel.AppViewModel
 import java.text.DateFormatSymbols
 import java.util.Calendar
 import java.util.Locale
 
 
-@Preview(showSystemUi = true)
 @Composable
-fun MainPage() {
+fun MainPage(navController: NavController) {
+    val viewModel:AppViewModel = viewModel(factory = AppViewModel.factory)
+    val allRooms = viewModel.roomList
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +51,15 @@ fun MainPage() {
             )
         }
         Column{
-            AddNewRoom()
+            if (allRooms.isNotEmpty()){
+                for (room in allRooms){
+                    RoomPreview(room){
+                        navController.navigate("RoomScreen" + "${room.id}")
+                    }
+                }
+            }
+
+            AddNewRoom(navController)
 
         }
 

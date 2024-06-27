@@ -20,13 +20,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.rmp.lab.data.util.RoomType
+import com.rmp.lab.viewModel.AppViewModel
 
-@Preview(showBackground = true)
 @Composable
-fun CreateRoomForm() {
+fun CreateRoomForm(navController: NavHostController) {
+    val viewModel: AppViewModel = viewModel(factory = AppViewModel.factory)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,7 +37,7 @@ fun CreateRoomForm() {
 
         ) {
         Text(
-            text = "Add room",
+            text = "Add Room",
             style = TextStyle(fontSize = 35.sp, fontWeight = FontWeight.Bold)
         )
         Text(
@@ -44,21 +47,27 @@ fun CreateRoomForm() {
         )
         Column(Modifier.selectableGroup()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RadioButton(selected = false, onClick = { /*TODO*/ })
+                RadioButton(
+                    selected = viewModel.roomType === RoomType.LIVING_ROOM,
+                    onClick = { viewModel.roomType = RoomType.LIVING_ROOM })
                 Text(
                     text = "Living Room",
                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal)
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RadioButton(selected = false, onClick = { /*TODO*/ })
+                RadioButton(
+                    selected = viewModel.roomType === RoomType.KITCHEN,
+                    onClick = { viewModel.roomType = RoomType.KITCHEN })
                 Text(
                     text = "Kitchen",
                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal)
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RadioButton(selected = false, onClick = { /*TODO*/ })
+                RadioButton(
+                    selected = viewModel.roomType === RoomType.BED_ROOM,
+                    onClick = { viewModel.roomType = RoomType.BED_ROOM })
                 Text(
                     text = "Bedroom",
                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal)
@@ -72,18 +81,21 @@ fun CreateRoomForm() {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = viewModel.roomName,
+            onValueChange = { viewModel.roomName = it },
             modifier = Modifier
-                .padding(top = 10.dp)
-                .height(40.dp),
+                .padding(top = 8.dp)
+                .height(50.dp),
             shape = RoundedCornerShape(10.dp),
 
 
             )
 
         Button(
-            onClick = {},
+            onClick = {
+                navController.navigate("MainPage")
+                viewModel.addRoom()
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color.DarkGray

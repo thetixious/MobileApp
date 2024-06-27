@@ -1,8 +1,9 @@
-import org.jetbrains.kotlin.fir.types.builder.buildImplicitTypeRef
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.android) version "1.7.20" apply true
+    id("kotlin-kapt")
+//    id("androidx.room")
 }
 
 android {
@@ -20,12 +21,25 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // For javac and KAPT
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "option_name" to "option_value",
+                    // other options...
+                )
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -39,17 +53,31 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+//    room {
+//        schemaDirectory("$projectDir/schemas")
+//    }
 }
 
 dependencies {
+    val room_version = "2.5.1"
 
+
+    // optional - Test helpers
+    testImplementation("androidx.room:room-testing:$room_version")
+
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.room:room-ktx:2.5.1")
+    kapt ("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.7")
+    implementation("androidx.room:room-runtime:$room_version")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -58,7 +86,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,5 +94,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.ui.tooling.preview)
 }
